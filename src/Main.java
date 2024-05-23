@@ -1,5 +1,6 @@
 import java.time.LocalDate;
 
+import br.com.dio.desafio.dominio.Conteudo;
 import br.com.dio.desafio.dominio.Curso;
 import br.com.dio.desafio.dominio.Mentoria;
 
@@ -14,6 +15,16 @@ public class Main {
     curso2.setTitulo("Curso js");
     curso2.setDescricao("Descrição curso js");
     curso2.setCargaHoraria(4);
+
+    /*
+     * tudo que tem em conteudo tem no curso
+     * porem nem tudo que tem no curso tem em conteudo
+     * POLIMOFISMO
+     * Conteudo conteudo = new Curso();
+     * Conteudo conteudo1 = new Mentoria();
+     * 
+     * mas não posso chamar Conteudo conteudo = new Conteudo() pois ela é abstrata
+     */
 
     Mentoria mentoria = new Mentoria();
     mentoria.setTitulo("Mentoria de java");
