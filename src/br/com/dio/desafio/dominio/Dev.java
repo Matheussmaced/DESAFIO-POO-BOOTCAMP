@@ -1,6 +1,7 @@
 package br.com.dio.desafio.dominio;
 
 import java.util.LinkedHashSet;
+import java.util.Optional;
 import java.util.Set;
 
 public class Dev {
@@ -12,12 +13,33 @@ public class Dev {
   // metodos
 
   public void inscreverBootcamp(Bootcamp bootcamp) {
+    // estou pegando tudo que tem no getConteudos e adicionando no
+    // conteudosInscrições
+    this.conteudosInscrições.addAll(bootcamp.getConteudos());
+    bootcamp.getDevsInscritos().add(this); // peguei o set que tem todos os devs inscritos e adicionei esse dev que se
+                                           // inscreveu nesse bootcamp que se passa como argumento
   }
 
+  // para progredir, tenho que pegar o conteudo de dentro do conteudosIncrições e
+  // colocar dentro do conteudosConcluidos
   public void progredir() {
+    Optional<Conteudo> conteudo = this.conteudosInscrições.stream().findFirst(); // conteudos inscritos
+    if (conteudo.isPresent()) {
+      this.conteudosConcluidos.add(conteudo.get());
+      this.conteudosInscrições.remove(conteudo.get());
+    } else {
+      System.err.println("Você não está matriculado em nenhum conteúdo!");
+    }
+
   }
 
-  public void calcularXp() {
+  public double calcularXp() {
+    // peguei e utilizei o stream API e peguei cada conteudo dentro do meu set de
+    // conteudosConcluidos, peguei o xp de cada conteudo e somei
+    return this.conteudosConcluidos
+        .stream()
+        .mapToDouble(conteudo -> conteudo.calcularXp())
+        .sum();
   }
 
   public String getNome() {
